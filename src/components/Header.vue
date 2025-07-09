@@ -19,7 +19,7 @@ const accountsStore = useAccountsStore();
       />
     </h1>
 
-    <Message severity="secondary">
+    <Message severity="info" variant="outlined">
       <i class="fa-solid fa-question"></i>
       <span>
         Для указания нескольких меток для одной пары логин/пароль используйте
