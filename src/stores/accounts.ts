@@ -2,7 +2,7 @@ import { ref, watch } from "vue";
 import { defineStore } from "pinia";
 import type { Account } from "../types";
 import { DEFAULT_ACCOUNTS } from "../shared/constants.ts";
-import { inputIsValid } from "../helpers/inputIsValid.ts";
+import { loginIsValid, passwordIsValid } from "../helpers/validateInput.ts";
 
 export const useAccountsStore = defineStore(
   "accounts",
@@ -26,10 +26,15 @@ export const useAccountsStore = defineStore(
     watch(
       accounts,
       (newValue: Account[]) => {
-        accounts.value = newValue.filter(
-          ({ login, password }) =>
-            inputIsValid(login) && inputIsValid(password),
-        );
+        accounts.value = newValue.filter(({ login, password, record_type }) => {
+          console.log(login, loginIsValid(login));
+          console.log(
+            password,
+            record_type,
+            passwordIsValid(password, record_type),
+          );
+          return loginIsValid(login) && passwordIsValid(password, record_type);
+        });
       },
       {
         once: true,

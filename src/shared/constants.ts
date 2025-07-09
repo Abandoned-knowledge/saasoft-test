@@ -27,16 +27,15 @@ export const DEFAULT_ACCOUNTS: Account[] = [
   },
   {
     id: 4,
-    marks: [{ text: "Значение" }],
+    marks: [{ text: "XXX" }, { text: "DDDDDD" }],
     record_type: "LDAP",
     login: "login",
-    password: "password",
+    password: null,
   },
   {
     id: 5,
-    marks: [{ text: "Значение" }],
     record_type: "LDAP",
     login: "login",
-    password: "password",
+    password: null,
   },
 ];

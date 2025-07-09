@@ -10,6 +10,7 @@ import {
   INPUT_MARKS_MAX_LENGTH,
   INPUT_MAX_LENGTH,
 } from "../shared/constants.ts";
+import { loginIsValid, passwordIsValid } from "../helpers/validateInput.ts";
 
 const { account } = defineProps<{ account: Account }>();
 
@@ -50,10 +51,6 @@ function onSelectChange(selectedType: Type) {
 }
 
 const isPasswordVisible = computed(() => account.record_type !== "LDAP");
-const validation_rules = computed(() => ({
-  login: !account.login || account.login.length > INPUT_MAX_LENGTH,
-  password: !account.password || account.password.length > INPUT_MAX_LENGTH,
-}));
 </script>
 
 <template>
@@ -79,7 +76,7 @@ const validation_rules = computed(() => ({
     <td :colspan="isPasswordVisible ? 1 : 2">
       <InputText
         type="text"
-        :invalid="validation_rules.login"
+        :invalid="!loginIsValid(account.login)"
         v-model="account.login"
         :maxlength="INPUT_MAX_LENGTH"
       />
@@ -89,7 +86,7 @@ const validation_rules = computed(() => ({
       <Password
         v-model="account.password"
         toggle-mask
-        :invalid="validation_rules.password"
+        :invalid="!passwordIsValid(account.password)"
         :feedback="false"
         :maxlength="INPUT_MAX_LENGTH"
       />
